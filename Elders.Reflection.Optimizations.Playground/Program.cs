@@ -107,7 +107,7 @@ namespace Elders.Relfection.Optimizations
         {
             var type = typeof(ProjectionA);
             Dynamics dynamics = new Dynamics();
-
+            
             dynamics.Warm(type);
             FastActivator.WarmInstanceConstructor(type);
 
@@ -117,8 +117,11 @@ namespace Elders.Relfection.Optimizations
             var str = "gg";
             var concreteFactory = dynamics.GetFactory(typeof(ProjectionA));
             var concreteFactoryB = dynamics.GetFactory(typeof(ProjectionB));
-            var info = MeasureExecutionTime.Start(() => concreteFactory.CreateInstance(parameters), numberOfObjects);
+            var info = MeasureExecutionTime.Start(() => dynamics.CreateInstance(type, parameters), numberOfObjects);
             Console.WriteLine("Elders Activator:" + info);
+
+            var infob = MeasureExecutionTime.Start(() => concreteFactoryB.CreateInstance(parameters), numberOfObjects);
+            Console.WriteLine("Elders Activator:" + infob);
 
             var ms = MeasureExecutionTime.Start(() => Activator.CreateInstance(type, parameters), numberOfObjects);
             Console.WriteLine("Microsoft Activator:" + ms);

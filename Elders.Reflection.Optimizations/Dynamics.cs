@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -41,7 +40,7 @@ namespace Elders.Reflection
         {
             foreach (var item in types)
             {
-                factories.TryAdd(item, factoryBuilder.CreateFactory(item));
+                factories.GetOrAdd(item, x => factoryBuilder.CreateFactory(x));
             }
         }
         ConcurrentDictionary<Type, IDynamicFactory> factories = new ConcurrentDictionary<Type, IDynamicFactory>();
@@ -51,7 +50,7 @@ namespace Elders.Reflection
             assemblyBuilder.Save(AssemblyName + ".dll");
         }
 
-        public object CreateInsance(Type type, object[] parmeters)
+        public object CreateInstance(Type type, object[] parmeters)
         {
             if (parmeters == null)
                 parmeters = new object[] { };
@@ -59,11 +58,10 @@ namespace Elders.Reflection
             return concreteFactory.CreateInstance(parmeters);
         }
 
-        public IDynamicFactory GetFactory(Type x)
+        public IDynamicFactory GetFactory(Type type)
         {
-            return factoryBuilder.CreateFactory(x);
+            return factories.GetOrAdd(type, x => factoryBuilder.CreateFactory(x));
         }
-
 
 
     }
