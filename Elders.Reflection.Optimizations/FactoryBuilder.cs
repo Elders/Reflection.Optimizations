@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Elders.Reflection
 {
-    public class FactoryBuilder
+    public class FactoryBuilder : IFactoryBuilder
     {
         ModuleBuilder moduleBuilder;
         public FactoryBuilder(ModuleBuilder moduleBuilder)

@@ -11,13 +11,14 @@ namespace Elders.Reflection
     public interface IDynamicFactory
     {
         object CreateInstance(object[] parmeters);
+        object Invoke(object instance, string name, object[] parmeters);
     }
     public class Dynamics
     {
         string AssemblyName = "Elders.Reflection.Runtime";
         AssemblyBuilder assemblyBuilder;
         ModuleBuilder moduleBuilder;
-        FactoryBuilder factoryBuilder;
+        IFactoryBuilder factoryBuilder;
         public Dynamics(bool produceAssembly = false)
         {
             AssemblyName asmName = new AssemblyName(AssemblyName);
@@ -32,7 +33,8 @@ namespace Elders.Reflection
                 assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Run);
                 moduleBuilder = assemblyBuilder.DefineDynamicModule(AssemblyName + "Module");
             }
-            factoryBuilder = new FactoryBuilder(moduleBuilder);
+            factoryBuilder = new DynamicsFactoryBuilder(); //new FactoryBuilder(moduleBuilder);
+            //factoryBuilder = new FactoryBuilder(moduleBuilder);
 
 
         }

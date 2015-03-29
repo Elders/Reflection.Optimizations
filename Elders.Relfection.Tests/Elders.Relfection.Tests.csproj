@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E052AB0-A56A-47F7-AEDC-A3BD45A736F3}</ProjectGuid>
+    <ProjectGuid>{FCFEB84D-5954-4768-B509-9FD4C4C9DBFB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elders.Relfection.Optimizations.Playground</RootNamespace>
-    <AssemblyName>Elders.Relfection.Optimizations.Playground</AssemblyName>
+    <RootNamespace>Elders.Relfection.Tests</RootNamespace>
+    <AssemblyName>Elders.Relfection.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,10 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,25 +29,47 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Elders.Relfection.Tests.Runner</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Machine.Specifications, Version=0.9.1.0, Culture=neutral, PublicKeyToken=e2091e5cc31f01f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Machine.Specifications.0.9.1\lib\net45\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4, Version=0.9.1.0, Culture=neutral, PublicKeyToken=e2091e5cc31f01f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Machine.Specifications.0.9.1\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Should, Version=0.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Machine.Specifications.Should.0.7.2\lib\net45\Machine.Specifications.Should.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MeasureExecutionTime.cs" />
-    <Compile Include="FastActivator.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="When_calling_property.cs" />
+    <Compile Include="When_calling_abstract_method.cs" />
+    <Compile Include="When_calling_virtual_method.cs" />
+    <Compile Include="When_calling_base_new_method.cs" />
+    <Compile Include="When_calling_base_class_method.cs" />
+    <Compile Include="When_calling_method_with_overload.cs" />
+    <Compile Include="When_creating_instace_with_private_parameterless_contsructor.cs" />
+    <Compile Include="Runner.cs" />
+    <Compile Include="When_calling_method.cs" />
+    <Compile Include="When_creating_instace_with_public_parameterless_contsructor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elders.Reflection.Optimizations\Elders.Reflection.Optimizations.csproj">
       <Project>{2919b4cb-0ed7-477c-86bf-839d2af46ede}</Project>
       <Name>Elders.Reflection.Optimizations</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

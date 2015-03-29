@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace Elders.Reflection
 {
-    public class OverloadComparer : IComparer<ConstructorInfo>
+    public class OverloadComparer : IComparer<MethodBase>
     {
 
         ParameterTypeComparer typeComp = new ParameterTypeComparer();
-        public int Compare(ConstructorInfo x, ConstructorInfo y)
+        public int Compare(MethodBase x, MethodBase y)
         {
+            if (x.DeclaringType != y.DeclaringType)
+            {
+                if (y.DeclaringType.IsAssignableFrom(x.DeclaringType))
+                    return 1;
+                if (x.DeclaringType.IsAssignableFrom(y.DeclaringType))
+                    return -1;
+            }
             if (x == y)
                 return 0;
             var xParameters = x.GetParameters();
@@ -32,6 +39,7 @@ namespace Elders.Reflection
                 if (compare != 0)
                     return compare;
             }
+
             return 0;
 
         }
